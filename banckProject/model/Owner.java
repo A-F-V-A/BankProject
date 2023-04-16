@@ -1,4 +1,4 @@
-package com.bankapp.model;
+package model;
 
 import java.io.Serializable;
 

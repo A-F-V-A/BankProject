@@ -1,4 +1,4 @@
-package com.bankapp.model;
+package model;
 
 public enum TypeAccount {
 	CURRENT,

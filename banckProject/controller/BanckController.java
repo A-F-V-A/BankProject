@@ -1,11 +1,11 @@
-package com.bankapp.controller;
+package controller;
 
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import com.bankapp.model.Account;
+import model.Account;
 
 public class BanckController {
 	

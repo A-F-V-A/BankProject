@@ -1,6 +1,4 @@
-package com.bankapp.model;
-
-import com.bankapp.view.Interface;
+import view.Interface;
 
 public class Bank {
 
@@ -9,8 +7,7 @@ public class Bank {
 		Interface interface1  = new Interface();
 		
 		interface1.menu();
-		
-
+	
 	}
 
 }
