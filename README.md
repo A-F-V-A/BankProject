@@ -33,7 +33,7 @@ Si deseas contribuir al proyecto, por favor sigue los siguientes pasos:
 
 ## Autores
 
-- Andres Felipe Villarraga Arango](https://github.com/A-F-V-A)
+- Andres Felipe Villarraga Arango (https://github.com/A-F-V-A)
 - ATOMOSX (https://github.com/ATOMOSX)
 
 ## Licencia
