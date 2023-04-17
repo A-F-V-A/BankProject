@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Account implements Serializable{
 	private String number;
@@ -10,7 +11,10 @@ public class Account implements Serializable{
 	private TypeAccount typeAccount;
 	private ArrayList<Transactions> transactions;
 	
-	public Account() { this.balance = 0;}
+	public Account() { 
+		this.balance = 0;
+		this.transactions = new ArrayList<>();
+	}
 
 	public Account(String number, Owner ownre, TypeAccount typeAccount) {
 		super();
@@ -20,6 +24,29 @@ public class Account implements Serializable{
 		this.balance = 0;
 		this.typeAccount = typeAccount;
 	}
+	
+	public void deposit(double amount) throws IllegalArgumentException {
+	    if(amount <= 0){
+	        throw new IllegalArgumentException("El monto a depositar debe ser mayor que cero");
+	    }
+	    balance += amount;
+	    Transactions transaction = new Transactions(amount, TypeTransaction.DEPOSITO, new Date(), this, balance);
+	    transactions.add(transaction);
+	}
+
+	public void withdraw(double amount) throws IllegalArgumentException {
+	    if (balance < amount) {
+	        throw new IllegalArgumentException("No hay suficiente saldo para retirar esta cantidad");
+	    }
+	    if(amount <= 10){
+	        throw new IllegalArgumentException("El monto a retirar debe ser mayor que diez");
+	    }
+	    balance -= amount;
+	    Transactions transaction = new Transactions(amount, TypeTransaction.RETIRO, new Date(), this, balance);
+	    transactions.add(transaction);
+	}
+
+	
 	public String getNumber() {
 		return number;
 	}

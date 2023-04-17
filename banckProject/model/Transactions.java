@@ -5,36 +5,47 @@ import java.util.Date;
 
 public class Transactions implements Serializable{
 	
-	private double deposit;
-	private TypeTransactions typeTransactions;
+	private double initialBalance;
+	private TypeTransaction typeTransactions;
 	private Date date;
 	private Account account;
 	private double finalBalance; 
 
-
-	public Transactions() {}
-
-	public Transactions(double deposit, Date date, TypeTransactions typeTransactions, double finalBalance) {
+	public Transactions() {
+		
+	}
+	
+	public Transactions(double initialBalance, TypeTransaction typeTransactions, Date date, Account account,
+			double finalBalance) {
 		super();
+		this.initialBalance = initialBalance;
 		this.typeTransactions = typeTransactions;
-		this.deposit = deposit;
 		this.date = date;
+		this.account = account;
 		this.finalBalance = finalBalance;
 	}
-	
-	public double getDeposit() {
-		return deposit;
-	}
-	
-	public void setDeposit(double deposit) {
-		this.deposit = deposit;
+
+	public double getInitialBalance() {
+		return initialBalance;
 	}
 
-	public TypeTransactions typeTransactions(){
+	public void setInitialBalance(double initialBalance) {
+		this.initialBalance = initialBalance;
+	}
+
+	public TypeTransaction getTypeTransactions() {
 		return typeTransactions;
 	}
 
-	public void typeTransactions(TypeTransactions typeTransactions){
+	public void setTypeTransactions(TypeTransaction typeTransactions) {
+		this.typeTransactions = typeTransactions;
+	}
+
+	public TypeTransaction typeTransactions(){
+		return typeTransactions;
+	}
+
+	public void typeTransactions(TypeTransaction typeTransactions){
 		this.typeTransactions = typeTransactions;
 	}
 	

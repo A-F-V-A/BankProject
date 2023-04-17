@@ -34,7 +34,7 @@ public class Interface {
 						backInit.setListAccount(createAccount(scanner,owner));
 	                    break;
 	                case 2:
-	                    realizarTransaccion();
+	                    realizarTransaccion(backInit);
 	                    break;
 	                case 3:
 	                	listarTransacciones();
@@ -59,9 +59,47 @@ public class Interface {
 		
 	}
 
-	private void realizarTransaccion() {
-		// TODO Auto-generated method stub
-		
+	private void realizarTransaccion(BanckController bancoController) {
+
+	    Scanner scanner = new Scanner(System.in);
+	    System.out.println("Ingrese el ID o número de cuenta del cliente:");
+	    String idOrNumber = scanner.nextLine();
+	    Account account = bancoController.getAccountByIdOrNumber(idOrNumber);
+	    
+	    if (account == null) {
+	        System.out.println("No se encontró la cuenta.");
+	        return;
+	    }
+
+	    // Pedir la operación y el monto
+	    System.out.println("Ingrese '1' para depositar o '2' para retirar:");
+	    int operacion = scanner.nextInt();
+	    scanner.nextLine(); 
+	    System.out.println("Ingrese el monto de la transacción:");
+	    double monto = scanner.nextDouble();
+	    scanner.nextLine();
+
+	    // Realizar la transacción y guardar los cambios
+	    if (operacion == 1) {
+	        account.deposit(monto);
+	        System.out.println("Se ha depositado " + monto + " a la cuenta " + account.getNumber());
+	    } else if (operacion == 2) {
+	        try {
+	            account.withdraw(monto);
+	            System.out.println("Se ha retirado " + monto + " de la cuenta " + account.getNumber());
+	        } catch (IllegalArgumentException e) {
+	            System.out.println(e.getMessage());
+	            return;
+	        }
+	    } else {
+	        System.out.println("Operación no válida.");
+	        return;
+	    }
+
+	    // Guardar los cambios en el archivo
+	    if (!bancoController.save()) {
+	        System.out.println("Error al guardar los cambios en el archivo.");
+	    }
 	}
 
 	private Owner createHolder(Scanner scanner) {
@@ -91,7 +129,7 @@ public class Interface {
 			typeAccount = TypeAccount.SAVINGS;
 		else {
 			System.out.println("Tipo de cuenta inválido.");
-			return null; // Salir de la función si el tipo de cuenta es inválido
+			return null; 
 		}
 		return new Account(number, owner, typeAccount);
 	}
