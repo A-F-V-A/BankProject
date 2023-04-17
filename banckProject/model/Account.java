@@ -6,17 +6,18 @@ import java.util.ArrayList;
 public class Account implements Serializable{
 	private String number;
 	private Owner ownre;
-	private double balance;
+	private double balance ;
 	private TypeAccount typeAccount;
 	private ArrayList<Transactions> transactions;
 	
-	public Account() {}
+	public Account() { this.balance = 0;}
 
-	public Account(String number, Owner ownre, double balance, TypeAccount typeAccount) {
+	public Account(String number, Owner ownre, TypeAccount typeAccount) {
 		super();
+		this.transactions = new ArrayList<>();
 		this.number = number;
 		this.ownre = ownre;
-		this.balance = balance;
+		this.balance = 0;
 		this.typeAccount = typeAccount;
 	}
 	public String getNumber() {

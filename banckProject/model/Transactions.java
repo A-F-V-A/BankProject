@@ -6,7 +6,7 @@ import java.util.Date;
 public class Transactions implements Serializable{
 	
 	private double deposit;
-	private double withdrawal;
+	private TypeTransactions typeTransactions;
 	private Date date;
 	private Account account;
 	private double finalBalance; 
@@ -14,12 +14,11 @@ public class Transactions implements Serializable{
 
 	public Transactions() {}
 
-	public Transactions(double deposit, Date date, Account account, double finalBalance) {
+	public Transactions(double deposit, Date date, TypeTransactions typeTransactions, double finalBalance) {
 		super();
-		this.withdrawal = 0;
+		this.typeTransactions = typeTransactions;
 		this.deposit = deposit;
 		this.date = date;
-		this.account = account;
 		this.finalBalance = finalBalance;
 	}
 	
@@ -30,15 +29,16 @@ public class Transactions implements Serializable{
 	public void setDeposit(double deposit) {
 		this.deposit = deposit;
 	}
-	
-	public double getWithdrawal() {
-		return withdrawal;
+
+	public TypeTransactions typeTransactions(){
+		return typeTransactions;
+	}
+
+	public void typeTransactions(TypeTransactions typeTransactions){
+		this.typeTransactions = typeTransactions;
 	}
 	
-	public void setWithdrawal(double withdrawal) {
-		this.withdrawal = withdrawal;
-	}
-	
+
 	public Date getDate() {
 		return date;
 	}
