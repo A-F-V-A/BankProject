@@ -91,17 +91,18 @@ public class Interface {
 	    }
 
 	}
-
+	
 	private Owner createHolder(Scanner scanner) {
-		System.out.println("\n-- Crear cuenta --");
-		System.out.print("\nIngresa tus nombres: ");
-		String name = scanner.nextLine();
-		System.out.print("\nIngresa tus apellidos: ");
-		String lastname = scanner.nextLine();
-		System.out.print("\nIngresa tu identificacion: ");
-		String id = scanner.nextLine();
+	    System.out.println("\n-- Crear cuenta --");
+	    System.out.print("\nIngresa tus nombres: ");
+	    scanner.nextLine(); 
+	    String name = scanner.nextLine().toUpperCase();
+	    System.out.print("\nIngresa tus apellidos: ");
+	    String lastname = scanner.nextLine().toUpperCase();
+	    System.out.print("\nIngresa tu identificacion: ");
+	    String id = scanner.nextLine();
 
-		return new Owner(id, name, lastname);
+	    return new Owner(id, name, lastname);
 	}
 	
 	private Account createAccount(Scanner scanner, Owner owner){
@@ -145,9 +146,8 @@ public class Interface {
 
 				System.out.printf("| %20s | %20s | %20s | %20s | %20s |%n", 
 				"INITIAL BALANCE", "TYPE OF TRANSACTION", "TRANSACTION VALUE", "DATE/TIME","FINAL BALANCE");
-				//Corregir getInitial y agregar valor de trasacion 
 				System.out.printf("| %20s | %20s | %20s | %20s | %20s |%n", 
-				tr.getInitialBalance(), tr.getTypeTransactions(),"00.00",formatoFecha.format(tr.getDate()),tr.getFinalBalance());
+				tr.getInitialBalance(), tr.getTypeTransactions(),tr.getTransaction(),formatoFecha.format(tr.getDate()),tr.getFinalBalance());
 			}
 
 			System.out.println("--------------------------------------------------------------------------------------------------------------------\n");

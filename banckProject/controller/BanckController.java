@@ -82,7 +82,7 @@ public class BanckController {
 			return false;
 		}
 	}
-	
+
 	public Account getAccountByIdOrNumber(String idOrNumber) {
 	    for (Account account : listAccount) {
 	        if (account.getNumber().equals(idOrNumber) || account.getOwnre().getId().equals(idOrNumber)) {

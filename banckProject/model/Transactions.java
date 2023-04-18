@@ -10,19 +10,21 @@ public class Transactions implements Serializable{
 	private Date date;
 	private Account account;
 	private double finalBalance; 
+    private double transaction;
 
 	public Transactions() {
 		
 	}
 	
 	public Transactions(double initialBalance, TypeTransaction typeTransactions, Date date, Account account,
-			double finalBalance) {
+			double finalBalance, double transaction) {
 		super();
 		this.initialBalance = initialBalance;
 		this.typeTransactions = typeTransactions;
 		this.date = date;
 		this.account = account;
 		this.finalBalance = finalBalance;
+		this.transaction = transaction;
 	}
 
 	public double getInitialBalance() {
@@ -73,5 +75,12 @@ public class Transactions implements Serializable{
 	public void setFinalBalance(double finalBalance) {
 		this.finalBalance = finalBalance;
 	}
-	
+
+	public double getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(double transaction) {
+		this.transaction = transaction;
+	}	
 }
