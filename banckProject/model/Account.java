@@ -16,6 +16,11 @@ public class Account implements Serializable{
 		this.transactions = new ArrayList<>();
 	}
 
+
+	public ArrayList<Transactions> gettransactions (){
+		return transactions;
+	}
+
 	public Account(String number, Owner ownre, TypeAccount typeAccount) {
 		super();
 		this.transactions = new ArrayList<>();

@@ -1,5 +1,6 @@
 package view;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,7 +38,7 @@ public class Interface {
 	                    realizarTransaccion(backInit);
 	                    break;
 	                case 3:
-	                	listarTransacciones();
+						accountReport(backInit.getListAccount());
 	                    break;
 	                case 4:
 	                    System.out.println("Saliendo del programa...");
@@ -51,14 +52,7 @@ public class Interface {
 			backInit.createFile();
 			backInit.save();
 			backInit.closeFile();
-			accountReport(backInit.getListAccount());
-	    }
-
-	private void listarTransacciones() {
-		// TODO Auto-generated method stub
-		
 	}
-
 	private void realizarTransaccion(BanckController bancoController) {
 
 	    Scanner scanner = new Scanner(System.in);
@@ -96,10 +90,6 @@ public class Interface {
 	        return;
 	    }
 
-	    // Guardar los cambios en el archivo
-	    if (!bancoController.save()) {
-	        System.out.println("Error al guardar los cambios en el archivo.");
-	    }
 	}
 
 	private Owner createHolder(Scanner scanner) {
@@ -135,16 +125,32 @@ public class Interface {
 	}
 
 	private void accountReport(ArrayList<Account> accounts){
+
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		for (Account account : accounts) {
-			System.out.printf("| %35s | %15s | %15s | %15s |%n", 
-			"account " + account.getTypeAccount(), "Nº: " + account.getNumber(), "", "");
+			System.out.println("--------------------------------------------------------------------------------------------------------------------\n");
+			System.out.printf("| %43s | %20s | %20s | %20s |%n", 
+			"account " + account.getTypeAccount(), "Nº: " + account.getNumber(), "","");
 
-			System.out.printf("| %35s | %15s | %15s | %15s |%n", 
-			"Holder: " + account.getOwnre().getName() + " " + account.getOwnre().getLastname(), "Saldo: " + account.getBalance(), "", "");
+			System.out.printf("| %43s | %43s | %20s |%n", 
+			"Holder: " + account.getOwnre().getName() + " " + account.getOwnre().getLastname(), "Saldo: " + account.getBalance(), "");
 
-			System.out.printf("| %35s | %15s | %15s | %15s |%n", 
-			"Id: " + account.getOwnre().getId(), "", "", "");
+			System.out.printf("| %20s | %20s | %20s | %20s | %20s |%n", 
+			"Id: " + account.getOwnre().getId(), "", "", "", "");
+
+			System.out.println("\n");
+
+			for (Transactions tr : account.gettransactions()) {
+
+				System.out.printf("| %20s | %20s | %20s | %20s | %20s |%n", 
+				"INITIAL BALANCE", "TYPE OF TRANSACTION", "TRANSACTION VALUE", "DATE/TIME","FINAL BALANCE");
+				//Corregir getInitial y agregar valor de trasacion 
+				System.out.printf("| %20s | %20s | %20s | %20s | %20s |%n", 
+				tr.getInitialBalance(), tr.getTypeTransactions(),"00.00",formatoFecha.format(tr.getDate()),tr.getFinalBalance());
+			}
+
+			System.out.println("--------------------------------------------------------------------------------------------------------------------\n");
 		}
 	}
 }
