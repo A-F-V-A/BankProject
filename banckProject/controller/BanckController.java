@@ -17,13 +17,16 @@ public class BanckController {
 	public BanckController(){
 		this.listAccount = new ArrayList<Account>();
 	}
+	
+	public boolean createFile() {
+		try {
+			exit = new ObjectOutputStream(Files.newOutputStream(Paths.get("Banco.dat")));
+			return true;
+		}catch (Exception e) {
 
-	public  ArrayList<Account> getListAccount(){
-		return listAccount;
-   }
-
-	public  void setListAccount(Account account){
-		this.listAccount.add(account);
+			System.err.println("Error : Funtion ::createFile:: menssage: Error en crear en archivo");
+			return false;
+		}
 	}
 
 	
@@ -43,30 +46,6 @@ public class BanckController {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Error : Function ::readFile:: message: Error al leer el archivo");
-			return false;
-		}
-	}
-
-	public boolean closeFileInput() {
-		try {
-			if (input != null) {
-				input.close();
-			}
-			return true;
-		} catch (Exception e) {
-			System.err.println("Error : Function ::closeFile:: message: Error al cerrar el archivo");
-			return false;
-		}
-	}
-	
-	
-	public boolean createFile() {
-		try {
-			exit = new ObjectOutputStream(Files.newOutputStream(Paths.get("Banco.dat")));
-			return true;
-		}catch (Exception e) {
-
-			System.err.println("Error : Funtion ::createFile:: menssage: Error en crear en archivo");
 			return false;
 		}
 	}
@@ -90,6 +69,35 @@ public class BanckController {
 			System.err.println("Error : Funtion ::closeFile:: menssage: Error al cerrar el archivo");
 			return false;
 		}
+	}
+	
+	public boolean closeFileInput() {
+		try {
+			if (input != null) {
+				input.close();
+			}
+			return true;
+		} catch (Exception e) {
+			System.err.println("Error : Function ::closeFile:: message: Error al cerrar el archivo");
+			return false;
+		}
+	}
+	
+	public Account getAccountByIdOrNumber(String idOrNumber) {
+	    for (Account account : listAccount) {
+	        if (account.getNumber().equals(idOrNumber) || account.getOwnre().getId().equals(idOrNumber)) {
+	            return account;
+	        }
+	    }
+	    return null;
+	}
+	
+	public  ArrayList<Account> getListAccount(){
+		return listAccount;
+   }
+
+	public  void setListAccount(Account account){
+		this.listAccount.add(account);
 	}
 
 }
