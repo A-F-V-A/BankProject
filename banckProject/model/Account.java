@@ -8,6 +8,7 @@ public class Account implements Serializable{
 	private String number;
 	private Owner ownre;
 	private double balance ;
+    private double lastBalance;
 	private TypeAccount typeAccount;
 	private ArrayList<Transactions> transactions;
 	
@@ -28,14 +29,16 @@ public class Account implements Serializable{
 		this.ownre = ownre;
 		this.balance = 0;
 		this.typeAccount = typeAccount;
+		this.lastBalance = 0;
 	}
 	
 	public void deposit(double amount) throws IllegalArgumentException {
 	    if(amount <= 0){
 	        throw new IllegalArgumentException("El monto a depositar debe ser mayor que cero");
 	    }
+	    lastBalance = amount;
 	    balance += amount;
-	    Transactions transaction = new Transactions(amount, TypeTransaction.DEPOSITO, new Date(), this, balance);
+	    Transactions transaction = new Transactions((balance - amount), TypeTransaction.DEPOSITO, new Date(), this, balance, lastBalance);
 	    transactions.add(transaction);
 	}
 
@@ -43,12 +46,28 @@ public class Account implements Serializable{
 	    if (balance < amount) {
 	        throw new IllegalArgumentException("No hay suficiente saldo para retirar esta cantidad");
 	    }
-	    if(amount <= 10){
+	    if(amount <= 10000){
 	        throw new IllegalArgumentException("El monto a retirar debe ser mayor que diez");
 	    }
+	    
+	    double lastTransactionBalance = getLastTransactionBalance();
+	    
+	    
+	    lastBalance = balance;
 	    balance -= amount;
-	    Transactions transaction = new Transactions(amount, TypeTransaction.RETIRO, new Date(), this, balance);
+	    double inicialBalance = (lastTransactionBalance + amount) - balance;
+	    
+	    Transactions transaction = new Transactions(lastBalance, TypeTransaction.RETIRO, new Date(), this, balance, lastBalance);
 	    transactions.add(transaction);
+	}
+	
+	private double getLastTransactionBalance() {
+	    int n = transactions.size();
+	    if (n > 0) {
+	        return transactions.get(n - 1).getInitialBalance();
+	    } else {
+	        return balance;
+	    }
 	}
 
 	
